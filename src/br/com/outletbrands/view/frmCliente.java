@@ -106,7 +106,8 @@ public class frmCliente extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Clientes");
         setName(""); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -529,6 +530,7 @@ public class frmCliente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txttelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttelefoneActionPerformed
@@ -592,8 +594,13 @@ public class frmCliente extends javax.swing.JFrame {
 
         ClientesDAO dao = new ClientesDAO();
 
-        dao.excluirCliente(obj);
-        new Utilitarios().LimpaTela(painel_dados);
+        int i = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Excluir?", "Excluir", JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
+            dao.excluirCliente(obj);
+            new Utilitarios().LimpaTela(painel_dados);
+        } else {
+            repaint();
+        }
     }//GEN-LAST:event_btnexcluirActionPerformed
 
     private void bnteditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnteditarActionPerformed

@@ -7,6 +7,8 @@ package br.com.outletbrands.dao;
 
 import br.com.outletbrands.jdbc.ConnectionFactory;
 import br.com.outletbrands.model.Funcionarios;
+import br.com.outletbrands.view.FrmLogin;
+import br.com.outletbrands.view.FrmMenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -222,6 +224,53 @@ public class FuncionariosDAO {
             JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
             return null;
         }
+    }
+
+    //Metodo efetuaLogin
+    public void efetuaLogin(String email, String senha) {
+        try {
+
+            //SQL
+            String sql = "select * from tb_funcionarios where email = ? and senha = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, senha);
+
+            ResultSet result = stmt.executeQuery();
+
+            if (result.next()) {
+                //Usuario logado
+
+                //Caso o usuario seja do tipo admin
+                if (result.getString("nivel_acesso").equals("Admin")) {
+
+                    JOptionPane.showMessageDialog(null, "Seja bem vindo ao OtletBrands");
+                    FrmMenu tela = new FrmMenu();
+                    tela.usuariologado = result.getString("nome");
+
+                    tela.setVisible(true);
+                } //Caso o usuario seja do tipo limitado(comum) 
+                else if (result.getString("nivel_acesso").equals("Usuário")) {
+
+                    JOptionPane.showMessageDialog(null, "Seja bem vindo ao OtletBrands");
+                    FrmMenu tela = new FrmMenu();
+                    tela.usuariologado = result.getString("nome");
+
+                    tela.setVisible(true);
+
+                }
+
+            } else {
+                //Dados incorretos
+                JOptionPane.showMessageDialog(null, "Dados incorretos!");
+                new FrmLogin().setVisible(true);
+
+            }
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro : " + erro);
+        }
+
     }
 
 }

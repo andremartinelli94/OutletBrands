@@ -78,8 +78,8 @@ public class ClientesDAO {
 
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro" + erro);
+       
         }
-
     }
 
     public void excluirCliente(Clientes objeto) {
@@ -97,7 +97,6 @@ public class ClientesDAO {
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro" + erro);
         }
-
     }
 
     public List<Clientes> listarClientes() {

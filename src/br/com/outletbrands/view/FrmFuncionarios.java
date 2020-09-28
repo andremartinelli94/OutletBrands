@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Caio Duarte
+ * @author andre
  */
 public class FrmFuncionarios extends javax.swing.JFrame {
 
@@ -563,7 +563,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         jTabbedPane1.addTab("Consulta de funcionários", jPanel4);
 
         btnnovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnnovo.setText("+ Novo");
+        btnnovo.setText("Novo");
         btnnovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnnovoActionPerformed(evt);
@@ -833,8 +833,14 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
         FuncionariosDAO dao = new FuncionariosDAO();
 
-        dao.excluirFuncionario(obj);
-        new Utilitarios().LimpaTela(painel_dados);
+        int i = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Excluir?", "Excluir", JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
+            dao.excluirFuncionario(obj);
+            new Utilitarios().LimpaTela(painel_dados);
+        } else {
+            repaint();
+        }
+
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
