@@ -19,7 +19,7 @@ public class ClientesDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    public void cadastrarCliente(Clientes objeto) {
+    public boolean cadastrarCliente(Clientes objeto) {
         try {
             String sql = "insert tb_clientes(nome,rg,cpf,email,telefone,celular,cep,endereco,numero,complemento,bairro,cidade,estado)"
                     + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -39,17 +39,20 @@ public class ClientesDAO {
             statement.setString(12, objeto.getCidade());
             statement.setString(13, objeto.getEstado());
 
-            statement.execute();
+            //statement.execute();
+            statement.executeUpdate();
             statement.close();
 
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+            return true;
 
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro" + erro);
+            return false;
         }
     }
 
-    public void alterarCliente(Clientes objeto) {
+    public boolean alterarCliente(Clientes objeto) {
         try {
             String sql = "update tb_clientes set  nome=?, rg=?, cpf=?, email=?, telefone=?, celular=?, cep=?, "
                     + "endereco=?, numero=?,complemento=?,bairro=?,cidade=?, estado=?  where id =?";
@@ -72,17 +75,19 @@ public class ClientesDAO {
             statement.setInt(14, objeto.getId());
 
             statement.execute();
+            statement.executeUpdate();
             statement.close();
 
             JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+            return true;
 
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro" + erro);
-       
+            return false;
         }
     }
 
-    public void excluirCliente(Clientes objeto) {
+    public boolean excluirCliente(Clientes objeto) {
         try {
             String sql = "delete from tb_clientes where id=?";
 
@@ -90,12 +95,15 @@ public class ClientesDAO {
             statement.setInt(1, objeto.getId());
 
             statement.execute();
+            statement.executeUpdate();
             statement.close();
 
             JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
+            return true;
 
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro" + erro);
+            return false;
         }
     }
 

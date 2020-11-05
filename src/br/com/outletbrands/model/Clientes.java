@@ -129,5 +129,13 @@ public class Clientes {
         this.Estado = Estado;
     }
     
+    public Clientes(){
+    
+    }
+
+    public Clientes(String nome) {
+        this.nome = nome;
+    }
+    
 
 }

@@ -257,14 +257,12 @@ public class FuncionariosDAO {
                     tela.usuariologado = result.getString("nome");
 
                     tela.setVisible(true);
-
                 }
 
             } else {
                 //Dados incorretos
                 JOptionPane.showMessageDialog(null, "Dados incorretos!");
                 new FrmLogin().setVisible(true);
-
             }
 
         } catch (SQLException erro) {

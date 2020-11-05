@@ -205,4 +205,81 @@ public class ProdutosDAO {
         }
     }
 
+    public Produtos buscaPorCodigo(int id) {
+        try {
+            //criar o sql , organizar e executar.
+
+            String sql = "select*from tb_produtos where id =  ?";
+
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+            Produtos obj = new Produtos();
+
+            if (rs.next()) {
+
+                obj.setId(rs.getInt("id"));
+                obj.setDescricao(rs.getString("descricao"));
+                obj.setPreco(rs.getDouble("preco"));
+                obj.setQtd_estoque(rs.getInt("qtd_estoque"));
+            }
+            return obj;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Produto não encontrado!");
+            return null;
+        }
+    }
+
+    public void baixaEstoque(int id, int qtd_nova) {
+        try {
+            String sql = "update tb_produtos set qdt_estoque=? where id=?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setInt(1, qtd_nova);
+            stmt.setInt(2, id);
+            stmt.execute();
+            stmt.close();
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro:" + erro);
+        }
+    }
+
+    public int retornaEstoqueAtual(int id) {
+        try {
+            int qtd_estoque = 0;
+
+            String sql = "SELECT qtd_estoque from tb_produtos where id=?";
+
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Produtos p = new Produtos();
+                qtd_estoque = (rs.getInt("qtd_estoque"));
+            }
+            return qtd_estoque;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void adicionarEstoque(int id, int qtd_nova) {
+        try {
+            String sql = "update tb_produtos set qdt_estoque=? where id=?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setInt(1, qtd_nova);
+            stmt.setInt(2, id);
+            stmt.execute();
+            stmt.close();
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro:" + erro);
+        }
+    }
+
 }
